@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" x-data="{ darkMode: false, profileOpen: false, notificationsOpen: false }" x-bind:class="{ 'dark': darkMode }">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings - BankX</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-white">
+    <div class="flex min-h-screen">
+      <!-- Sidebar -->
+      <aside class="w-64 bg-white dark:bg-gray-800 shadow-md hidden md:block">
+        <div class="p-6 text-center border-b dark:border-gray-700">
+          <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400">BankX</h2>
+        </div>
+        <nav class="p-6 space-y-4">
+          <a href="#" class="block px-4 py-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700 font-medium">Dashboard</a>
+          <a href="#" class="block px-4 py-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700 font-medium">Accounts</a>
+          <a href="#" class="block px-4 py-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700 font-medium">Transactions</a>
+          <a href="#" class="block px-4 py-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700 font-medium">Budgets</a>
+          <a href="#" class="block px-4 py-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700 font-medium">Reports</a>
+          <a href="#" class="block px-4 py-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700 font-medium">Settings</a>
+        </nav>
+      </aside>
+
+      <!-- Main content -->
+      <div class="flex-1 flex flex-col">
+        <!-- Header -->
+        <header class="bg-white dark:bg-gray-800 shadow px-6 py-4 flex items-center justify-between">
+          <h1 class="text-2xl font-semibold">Settings</h1>
+          <div class="flex items-center space-x-4">
+            <button @click="darkMode = !darkMode" class="px-2 py-1 rounded bg-gray-200 dark:bg-gray-600">
+              <span x-show="!darkMode">🌙</span>
+              <span x-show="darkMode">☀️</span>
+            </button>
+            <div class="relative">
+              <button @click="profileOpen = !profileOpen" class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded">John ⌄</button>
+              <div x-show="profileOpen" @click.away="profileOpen = false" class="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded shadow z-10">
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">Profile</a>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</a>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Content -->
+        <main class="flex-1 p-6 space-y-6">
+          <!-- Profile Settings -->
+          <div class="bg-white dark:bg-gray-800 p-6 rounded shadow">
+            <h2 class="text-lg font-semibold mb-4">Profile Settings</h2>
+            <form action="#" method="POST">
+              <div class="space-y-4">
+                <div>
+                  <label for="fullName" class="block text-sm font-medium">Full Name</label>
+                  <input type="text" id="fullName" class="mt-1 block w-full p-2 rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300" placeholder="John Doe" />
+                </div>
+                <div>
+                  <label for="email" class="block text-sm font-medium">Email</label>
+                  <input type="email" id="email" class="mt-1 block w-full p-2 rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300" placeholder="john.doe@example.com" />
+                </div>
+                <div>
+                  <label for="phone" class="block text-sm font-medium">Phone</label>
+                  <input type="tel" id="phone" class="mt-1 block w-full p-2 rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300" placeholder="123-456-7890" />
+                </div>
+                <div class="flex justify-end">
+                  <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Save Changes</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Password Settings -->
+          <div class="bg-white dark:bg-gray-800 p-6 rounded shadow">
+            <h2 class="text-lg font-semibold mb-4">Password Settings</h2>
+            <form action="#" method="POST">
+              <div class="space-y-4">
+                <div>
+                  <label for="currentPassword" class="block text-sm font-medium">Current Password</label>
+                  <input type="password" id="currentPassword" class="mt-1 block w-full p-2 rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300" placeholder="••••••••" />
+                </div>
+                <div>
+                  <label for="newPassword" class="block text-sm font-medium">New Password</label>
+                  <input type="password" id="newPassword" class="mt-1 block w-full p-2 rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300" placeholder="••••••••" />
+                </div>
+                <div>
+                  <label for="confirmPassword" class="block text-sm font-medium">Confirm New Password</label>
+                  <input type="password" id="confirmPassword" class="mt-1 block w-full p-2 rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300" placeholder="••••••••" />
+                </div>
+                <div class="flex justify-end">
+                  <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Update Password</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Notification Settings -->
+          <div class="bg-white dark:bg-gray-800 p-6 rounded shadow">
+            <h2 class="text-lg font-semibold mb-4">Notification Settings</h2>
+            <form action="#" method="POST">
+              <div class="space-y-4">
+                <div class="flex items-center space-x-4">
+                  <input type="checkbox" id="emailNotifications" class="text-blue-600 dark:text-blue-400" />
+                  <label for="emailNotifications" class="text-sm">Email Notifications</label>
+                </div>
+                <div class="flex items-center space-x-4">
+                  <input type="checkbox" id="smsNotifications" class="text-blue-600 dark:text-blue-400" />
+                  <label for="smsNotifications" class="text-sm">SMS Notifications</label>
+                </div>
+                <div class="flex justify-end">
+                  <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Save Preferences</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Support Button -->
+          <div class="text-center">
+            <button class="px-6 py-3 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition">Contact Support</button>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

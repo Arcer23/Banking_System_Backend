@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" x-data="{ darkMode: false, reportType: 'activity', dateRange: 'last30days' }" x-bind:class="{ 'dark': darkMode }">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reports - BankX</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-white">
+    <div class="flex min-h-screen">
+      <!-- Sidebar -->
+      <aside class="w-64 bg-white dark:bg-gray-800 shadow-md hidden md:block">
+        <div class="p-6 text-center border-b dark:border-gray-700">
+          <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400">BankX</h2>
+        </div>
+        <nav class="p-6 space-y-4">
+          <a href="#" class="block px-4 py-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700 font-medium">Dashboard</a>
+          <a href="#" class="block px-4 py-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700 font-medium">Accounts</a>
+          <a href="#" class="block px-4 py-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700 font-medium">Transactions</a>
+          <a href="#" class="block px-4 py-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700 font-medium">Budgets</a>
+          <a href="#" class="block px-4 py-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700 font-medium">Reports</a>
+          <a href="#" class="block px-4 py-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700 font-medium">Settings</a>
+        </nav>
+      </aside>
+
+      <!-- Main content -->
+      <div class="flex-1 flex flex-col">
+        <!-- Header -->
+        <header class="bg-white dark:bg-gray-800 shadow px-6 py-4 flex items-center justify-between">
+          <h1 class="text-2xl font-semibold">Reports</h1>
+          <div class="flex items-center space-x-4">
+            <button @click="darkMode = !darkMode" class="px-2 py-1 rounded bg-gray-200 dark:bg-gray-600">
+              <span x-show="!darkMode">🌙</span>
+              <span x-show="darkMode">☀️</span>
+            </button>
+            <div class="relative">
+              <button @click="profileOpen = !profileOpen" class="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded">John ⌄</button>
+              <div x-show="profileOpen" @click.away="profileOpen = false" class="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded shadow z-10">
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">Profile</a>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</a>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Content -->
+        <main class="flex-1 p-6 space-y-6">
+          <!-- Report Filters -->
+          <div class="bg-white dark:bg-gray-800 p-6 rounded shadow">
+            <h2 class="text-lg font-semibold mb-4">Generate Report</h2>
+            <div class="space-y-4">
+              <!-- Report Type -->
+              <div>
+                <label for="reportType" class="block text-sm font-medium">Select Report Type</label>
+                <select id="reportType" x-model="reportType" class="mt-1 block w-full p-2 rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+                  <option value="activity">User Activity</option>
+                  <option value="financial">Financial Report</option>
+                  <option value="transactions">Transaction Report</option>
+                </select>
+              </div>
+
+              <!-- Date Range -->
+              <div>
+                <label for="dateRange" class="block text-sm font-medium">Select Date Range</label>
+                <select id="dateRange" x-model="dateRange" class="mt-1 block w-full p-2 rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+                  <option value="last7days">Last 7 Days</option>
+                  <option value="last30days">Last 30 Days</option>
+                  <option value="last90days">Last 90 Days</option>
+                  <option value="custom">Custom Range</option>
+                </select>
+              </div>
+
+              <!-- Actions -->
+              <div class="flex justify-end space-x-4">
+                <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Generate Report</button>
+                <button class="px-6 py-2 bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-400">Reset Filters</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Report View -->
+          <div class="bg-white dark:bg-gray-800 p-6 rounded shadow">
+            <h2 class="text-lg font-semibold mb-4">Report Preview</h2>
+            <div class="space-y-4">
+              <!-- Report Data -->
+              <div class="overflow-x-auto">
+                <table class="min-w-full table-auto">
+                  <thead class="bg-gray-200 dark:bg-gray-700 text-sm font-semibold">
+                    <tr>
+                      <th class="px-4 py-2">ID</th>
+                      <th class="px-4 py-2">Name</th>
+                      <th class="px-4 py-2">Date</th>
+                      <th class="px-4 py-2">Amount</th>
+                      <th class="px-4 py-2">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-sm">
+                    <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                      <td class="px-4 py-2">1</td>
+                      <td class="px-4 py-2">John Doe</td>
+                      <td class="px-4 py-2">2025-04-01</td>
+                      <td class="px-4 py-2">$500</td>
+                      <td class="px-4 py-2 text-green-600">Completed</td>
+                    </tr>
+                    <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                      <td class="px-4 py-2">2</td>
+                      <td class="px-4 py-2">Jane Smith</td>
+                      <td class="px-4 py-2">2025-04-02</td>
+                      <td class="px-4 py-2">$300</td>
+                      <td class="px-4 py-2 text-red-600">Failed</td>
+                    </tr>
+                    <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                      <td class="px-4 py-2">3</td>
+                      <td class="px-4 py-2">Mark Johnson</td>
+                      <td class="px-4 py-2">2025-04-03</td>
+                      <td class="px-4 py-2">$800</td>
+                      <td class="px-4 py-2 text-yellow-600">Pending</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Download and Print Actions -->
+              <div class="flex justify-end space-x-4">
+                <button class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Download PDF</button>
+                <button class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Print Report</button>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
